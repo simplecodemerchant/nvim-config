@@ -33,4 +33,6 @@ vim.opt.textwidth = 0
 
 vim.g.mapleader = " "
 
+-- status line
+vim.opt.statusline = "%{FugitiveStatusline()}"
 
