@@ -1,5 +1,8 @@
-print("Loading lsp.lua")
 local lsp_zero = require('lsp-zero')
+
+require("neodev").setup({
+  -- add any options here, or leave empty to use the default settings
+})
 
 lsp_zero.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
@@ -8,7 +11,16 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 
 -- here you can setup the language servers 
--- require('lspconfig').lua_ls.setup({})
+require('lspconfig').lua_ls.setup({
+    settings = {
+    Lua = {
+      completion = {
+        callSnippet = "Replace"
+      }
+    }
+  }
+})
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = {},
