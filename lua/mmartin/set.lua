@@ -36,3 +36,8 @@ vim.g.mapleader = " "
 -- status line
 vim.opt.statusline = "%{FugitiveStatusline()}"
 
+-- preferences
+vim.opt.ignorecase = true
+vim.opt.title = true
+vim.opt.titlelen = 0 -- do not shorten title
+vim.opt.titlestring = '%{expand("%:.")}'
