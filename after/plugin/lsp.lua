@@ -30,24 +30,20 @@ require('mason-lspconfig').setup({
 })
 
 
---local lsp_zero = require('lsp-zero')
---
---
---
---local cmp = require('cmp')
---local cmp_action = lsp_zero.cmp_action()
---
--- cmp.setup({
---     formatting = lsp_zero.cmp_format(),
---     mapping = cmp.mapping.preset.insert({
---
---         ['<Tab>'] = cmp_action.luasnip_supertab(),
---         ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
---         ['<C-Space>'] = cmp.mapping.confirm({select = true}),
---         ['<CR>'] = cmp.mapping.confirm({select = true}),
---     })
--- })
---
+local cmp = require('cmp')
+local cmp_action = lsp_zero.cmp_action()
+
+ cmp.setup({
+     formatting = lsp_zero.cmp_format(),
+     mapping = cmp.mapping.preset.insert({
+
+         ['<Tab>'] = cmp_action.luasnip_supertab(),
+         ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+         ['<C-Space>'] = cmp.mapping.confirm({select = true}),
+         ['<CR>'] = cmp.mapping.confirm({select = true}),
+     })
+ })
+
 --lsp_zero.set_preferences({
 --    suggest_lsp_servers = false,
 --    sign_icons = {
