@@ -99,7 +99,7 @@ require("lazy").setup({
         },
         version = '^1.0.0', -- optional: only update when a new 1.x version is released
     },
-    { "folke/neodev.nvim", opts = {} },
+    { "folke/neodev.nvim",         opts = {} },
     {
         "kdheepak/lazygit.nvim",
         -- optional for floating window border decoration
@@ -117,5 +117,6 @@ require("lazy").setup({
         config = function()
             require('crates').setup()
         end,
-    }
+    },
+    { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
 })

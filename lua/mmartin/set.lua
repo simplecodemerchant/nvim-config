@@ -34,7 +34,7 @@ vim.opt.textwidth = 0
 vim.g.mapleader = " "
 
 -- status line
-vim.opt.statusline = "%{FugitiveStatusline()}"
+-- vim.opt.statusline = "%{FugitiveStatusline()}"
 
 -- preferences
 vim.opt.ignorecase = true
