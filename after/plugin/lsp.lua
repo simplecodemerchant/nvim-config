@@ -10,8 +10,13 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
+local lspconfig = require("lspconfig")
+local on_attach = require("lspconfig").on_attach
+local capabilities = require("lspconfig").capabilties
+local util = require("lspconfig/util")
+
 -- here you can setup the language servers 
-require('lspconfig').lua_ls.setup({
+lspconfig.lua_ls.setup({
     settings = {
     Lua = {
       completion = {
@@ -21,9 +26,25 @@ require('lspconfig').lua_ls.setup({
   }
 })
 
+lspconfig.rust_analyzer.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetype = {"rust"},
+    root_dir = util.root_pattern("Cargo.toml"),
+    settings = {
+        ['rust-analyzer'] = {
+            cargo = {
+                allFeatures = true,
+            },
+        },
+    },
+})
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {},
+  ensure_installed = {
+    'rust_analyzer',
+  },
   handlers = {
     lsp_zero.default_setup,
   },
@@ -41,7 +62,10 @@ local cmp_action = lsp_zero.cmp_action()
          ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
          ['<C-Space>'] = cmp.mapping.confirm({select = true}),
          ['<CR>'] = cmp.mapping.confirm({select = true}),
-     })
+     }),
+     sources = {
+            { name = "crates" }
+     }
  })
 
 --lsp_zero.set_preferences({
