@@ -1,3 +1,4 @@
+local M = {}
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
@@ -12,36 +13,49 @@ vim.keymap.set('n', '<leader>px', builtin.resume, {
 --end)
 vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
 
-
-local function visual_selection_range()
-    local _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
-    local _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
-    if csrow < cerow or (csrow == cerow and cscol <= cecol) then
-        return {csrow - 1, cscol - 1}, {cerow - 1, cecol}
-    else
-        return {cerow - 1, cecol - 1}, {csrow - 1, cscol}
-    end
+function M.tbl_length(T)
+    local count = 0
+    for _ in pairs(T) do count = count + 1 end
+    return count
 end
 
-local function region_to_text(region)
-    local text = ''
-    local maxcol = vim.v.maxcol
-    for line, cols in vim.spairs(region) do
-        local endcol = cols[2] == maxcol and -1 or cols[2]
-        local chunk = vim.api.nvim_buf_get_text(0, line, cols[1], line, endcol, {})[1]
-        text = ('%s%s'):format(text, chunk)
+function M.get_visual_selection()
+    -- this will exit visual mode
+    -- use 'gv' to reselect the text
+    local _, csrow, cscol, cerow, cecol
+    local mode = vim.fn.mode()
+    if mode == 'v' or mode == 'V' or mode == '' then
+        -- if we are in visual mode use the live position
+        _, csrow, cscol, _ = unpack(vim.fn.getpos("."))
+        _, cerow, cecol, _ = unpack(vim.fn.getpos("v"))
+        if mode == 'V' then
+            -- visual line doesn't provide columns
+            cscol, cecol = 0, 999
+        end
+        -- exit visual mode
+        vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("<Esc>",
+                true, false, true), 'n', true)
+    else
+        -- otherwise, use the last known visual position
+        _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
+        _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
     end
-    return text
+    -- swap vars if needed
+    if cerow < csrow then csrow, cerow = cerow, csrow end
+    if cecol < cscol then cscol, cecol = cecol, cscol end
+    local lines = vim.fn.getline(csrow, cerow)
+    -- local n = cerow-csrow+1
+    local n = M.tbl_length(lines)
+    if n <= 0 then return '' end
+    lines[n] = string.sub(lines[n], 1, cecol)
+    lines[1] = string.sub(lines[1], cscol)
+    return table.concat(lines, "\n")
 end
 
 vim.keymap.set('v', '<leader>ps', function()
-    local cs, ce = visual_selection_range()
-    print(unpack(cs))
-    print(unpack(ce))
-    local r = vim.region(0, cs, ce, vim.fn.visualmode(), true)
-    local text = region_to_text(r)
-    print(text)
-    -- builtin.live_grep({
-    --     default_text = text
-    -- })
+    local text = M.get_visual_selection()
+    builtin.live_grep({
+        default_text = text
+    })
 end, {})
