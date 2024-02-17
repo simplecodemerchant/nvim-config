@@ -22,8 +22,6 @@ require('mason-lspconfig').setup({
     handlers = {
         lsp_zero.default_setup,
 
-        --rust_analyzer = lsp_zero.noop,
-
         lua_ls = function()
             local lua_opts = lsp_zero.nvim_lua_ls()
             lspconfig.lua_ls.setup(lua_opts)
@@ -52,11 +50,12 @@ local cmp_action = lsp_zero.cmp_action()
 cmp.setup({
     formatting = lsp_zero.cmp_format(),
     mapping = cmp.mapping.preset.insert({
-        ['<Tab>'] = cmp_action.luasnip_supertab(),
+        --['<Tab>'] = cmp_action.luasnip_supertab(),
+        ['<Tab>'] = cmp_action.mapping.confirm({select = true}),
         ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-        ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.comlete(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    }) 
+    })
 })
 
 lsp_zero.preset({
