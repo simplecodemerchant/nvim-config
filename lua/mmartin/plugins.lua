@@ -84,22 +84,44 @@ require("lazy").setup({
         -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
+    --{
+    --    'romgrk/barbar.nvim',
+    --    dependencies = {
+    --        'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+    --        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    --    },
+    --    init = function() vim.g.barbar_auto_setup = false end,
+    --    opts = {
+    --        -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+    --        -- animation = true,
+    --        -- insert_at_start = true,
+    --        -- …etc.
+    --    },
+    --    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+    --},
+    --{ "folke/neodev.nvim",         opts = {} },
     {
-        'romgrk/barbar.nvim',
-        dependencies = {
-            'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
-            'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-        },
-        init = function() vim.g.barbar_auto_setup = false end,
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
         opts = {
-            -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-            -- animation = true,
-            -- insert_at_start = true,
-            -- …etc.
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
         },
-        version = '^1.0.0', -- optional: only update when a new 1.x version is released
     },
-    { "folke/neodev.nvim",         opts = {} },
+    { "Bilal2453/luvit-meta",      lazy = true }, -- optional `vim.uv` typings
+    {                                      -- optional completion source for require statements and module annotations
+        "hrsh7th/nvim-cmp",
+        opts = function(_, opts)
+            opts.sources = opts.sources or {}
+            table.insert(opts.sources, {
+                name = "lazydev",
+                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+            })
+        end,
+    },
     {
         "kdheepak/lazygit.nvim",
         -- optional for floating window border decoration
