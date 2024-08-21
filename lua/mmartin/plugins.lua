@@ -36,47 +36,17 @@ require("lazy").setup({
 
     'tpope/vim-fugitive',
 
-    --{
-    --    'VonHeikemen/lsp-zero.nvim',
-    --    branch = 'v3.x',
-    --    dependencies = {
-    --        --- Uncomment these if you want to manage LSP servers from neovim
-    --        {'williamboman/mason.nvim'},
-    --        {'williamboman/mason-lspconfig.nvim'},
-
-    --        -- LSP Support
-    --        {'neovim/nvim-lspconfig'},
-    --        -- Autocompletion
-    --        {'hrsh7th/nvim-cmp'},
-    --        {'hrsh7th/cmp-nvim-lsp'},
-    --        {'L3MON4D3/LuaSnip'},
-    --    }
-    --},
-
-    --- Uncomment the two plugins below if you want to manage the language servers from neovim
-    --- and read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
-    { 'williamboman/mason.nvim' },
-    { 'williamboman/mason-lspconfig.nvim' },
-
-    { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
-    { 'neovim/nvim-lspconfig' },
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp' },
-    { 'L3MON4D3/LuaSnip' },
+    {'williamboman/mason.nvim'},
+    {'williamboman/mason-lspconfig.nvim'},
+    
+    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+    {'neovim/nvim-lspconfig'},
+    {'hrsh7th/cmp-nvim-lsp'},
+    {'hrsh7th/nvim-cmp'},
+    {'L3MON4D3/LuaSnip'},
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
-    "github/copilot.vim",
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-            "3rd/image.nvim",              -- Optional image support in preview window: See `# Preview Mode` for more information
-        }
     },
     {
         'stevearc/oil.nvim',
