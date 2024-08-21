@@ -1,9 +1,5 @@
 local lsp_zero = require('lsp-zero')
 
-require("neodev").setup({
-    -- add any options here, or leave empty to use the default settings
-})
-
 lsp_zero.on_attach(function(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
@@ -56,7 +52,15 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
         'rust_analyzer',
-        'tailwindcss'
+        'tailwindcss',
+        'gopls',
+        'tsserver',
+        'pyright',
+        'bashls',
+        'html',
+        'lua_ls',
+        'puppet',
+        'yamlls'
     },
     handlers = {
         lsp_zero.default_setup,
