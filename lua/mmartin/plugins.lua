@@ -26,7 +26,7 @@ require("lazy").setup({
         end
     },
 
-    { 'nvim-treesitter/nvim-treesitter',  build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter',  build = ':TSUpdate', branch = "master"},
 
     'nvim-treesitter/playground',
 
@@ -36,40 +36,25 @@ require("lazy").setup({
 
     'tpope/vim-fugitive',
 
-    {'williamboman/mason.nvim'},
-    {'williamboman/mason-lspconfig.nvim'},
-    
-    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-    {'neovim/nvim-lspconfig'},
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/nvim-cmp'},
-    {'L3MON4D3/LuaSnip'},
+    { 'williamboman/mason.nvim' },
+    { 'williamboman/mason-lspconfig.nvim' },
+
+    { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
+    { 'neovim/nvim-lspconfig' },
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/nvim-cmp' },
+    {
+        'L3MON4D3/LuaSnip',
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp"
+    },
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
-    {
-        'stevearc/oil.nvim',
-        opts = {},
-        -- Optional dependencies
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
-    --{
-    --    'romgrk/barbar.nvim',
-    --    dependencies = {
-    --        'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
-    --        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    --    },
-    --    init = function() vim.g.barbar_auto_setup = false end,
-    --    opts = {
-    --        -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-    --        -- animation = true,
-    --        -- insert_at_start = true,
-    --        -- …etc.
-    --    },
-    --    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-    --},
-    --{ "folke/neodev.nvim",         opts = {} },
+    { "nvim-tree/nvim-tree.lua" },
     {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -81,8 +66,8 @@ require("lazy").setup({
             },
         },
     },
-    { "Bilal2453/luvit-meta",      lazy = true }, -- optional `vim.uv` typings
-    {                                      -- optional completion source for require statements and module annotations
+    { "Bilal2453/luvit-meta",   lazy = true }, -- optional `vim.uv` typings
+    {                                          -- optional completion source for require statements and module annotations
         "hrsh7th/nvim-cmp",
         opts = function(_, opts)
             opts.sources = opts.sources or {}
@@ -101,13 +86,6 @@ require("lazy").setup({
         },
         config = function()
             require("telescope").load_extension("lazygit")
-        end,
-    },
-    {
-        'saecki/crates.nvim',
-        tag = 'stable',
-        config = function()
-            require('crates').setup()
         end,
     },
     { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
