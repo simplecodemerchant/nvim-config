@@ -17,6 +17,20 @@ require("lazy").setup({
         version = '0.1.5',
         dependencies = { { 'nvim-lua/plenary.nvim' } }
     },
+    {
+        "danielfalk/smart-open.nvim",
+        branch = "0.2.x",
+        config = function()
+            require("telescope").load_extension("smart_open")
+        end,
+        dependencies = {
+            "kkharji/sqlite.lua",
+            -- Only required if using match_algorithm fzf
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+            -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+            { "nvim-telescope/telescope-fzy-native.nvim" },
+        },
+    },
 
     {
         'rose-pine/neovim',
@@ -26,7 +40,7 @@ require("lazy").setup({
         end
     },
 
-    { 'nvim-treesitter/nvim-treesitter',  build = ':TSUpdate', branch = "master"},
+    { 'nvim-treesitter/nvim-treesitter',  build = ':TSUpdate', branch = "master" },
 
     'nvim-treesitter/playground',
 
