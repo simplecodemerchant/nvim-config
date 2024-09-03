@@ -33,7 +33,7 @@ lsp_zero.format_on_save({
         ['pyright'] = { 'python' },
         ['html'] = { 'html' },
         ['gopls'] = { 'go' },
-
+        ["svelte"] = { "svelte" }
     }
 })
 
