@@ -56,6 +56,8 @@ require('mason-lspconfig').setup({
     'puppet',
     'yamlls',
     'terraformls'
+    'docker_compose_language_service',
+    'dockerls'
   },
   handlers = {
     function(server_name)
