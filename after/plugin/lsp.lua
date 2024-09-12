@@ -55,7 +55,7 @@ require('mason-lspconfig').setup({
     'lua_ls',
     'puppet',
     'yamlls',
-    'terraformls'
+    'terraformls',
     'docker_compose_language_service',
     'dockerls'
   },
