@@ -38,6 +38,11 @@ lsp_zero.format_on_save({
   }
 })
 
+--local servers = {
+--  terraformls = {
+--    filetype = { 'tf', "terraform", "terraform-vars" }
+--  }
+--}
 local util = require("lspconfig/util")
 
 require('mason').setup({})
@@ -62,7 +67,7 @@ require('mason-lspconfig').setup({
   handlers = {
     function(server_name)
       require('lspconfig')[server_name].setup({
-
+        --        filetypes = (servers[server_name] or {}).filetype
       })
     end,
 
