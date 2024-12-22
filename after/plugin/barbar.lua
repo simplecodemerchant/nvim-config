@@ -4,7 +4,7 @@ require 'barbar'.setup {
   --       The defaults are suitable for most people.
 
   -- Enable/disable animations
-  animation = true,
+  animation = false,
 
   -- Automatically hide the tabline when there are this many buffers left.
   -- Set to any value >=0 to enable.

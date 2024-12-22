@@ -28,13 +28,16 @@ lsp_zero.format_on_save({
     timeout_ms = 10000,
   },
   servers = {
-    ['tsserver'] = { 'javascript', 'typescript' },
+    ['ts_ls'] = { 'javascript', 'typescript' },
     ['lua_ls'] = { 'lua' },
     ['pyright'] = { 'python' },
     ['html'] = { 'html' },
     ['gopls'] = { 'go' },
+    ['goimports'] = { 'go' },
     ["svelte"] = { "svelte" },
-    ["terraformls"] = { "terraform", "terraform-vars" }
+    ["terraformls"] = { "terraform", "terraform-vars" },
+    ["solargraph"] = { "ruby" },
+
   }
 })
 
@@ -53,7 +56,7 @@ require('mason-lspconfig').setup({
     'rust_analyzer',
     'tailwindcss',
     'gopls',
-    'tsserver',
+    'ts_ls',
     'pyright',
     'bashls',
     'html',
@@ -62,7 +65,7 @@ require('mason-lspconfig').setup({
     'yamlls',
     'terraformls',
     'docker_compose_language_service',
-    'dockerls'
+    'dockerls',
   },
   handlers = {
     function(server_name)
@@ -87,6 +90,9 @@ require('mason-lspconfig').setup({
             },
           },
         },
+        on_attach = function(client, bufnr)
+          vim.lsp.inlay_hint.enable(true)
+        end
       })
     end
   },
@@ -106,6 +112,7 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'luasnip', keyword_length = 2 },
     { name = 'buffer',  keyword_length = 3 },
+    { name = "crates" },
   },
   window = {
     completion = cmp.config.window.bordered(),
@@ -125,64 +132,3 @@ cmp.setup({
     ['<C-b>'] = cmp_action.luasnip_jump_backward(),
   }),
 })
-
---lsp_zero.on_attach(function(_, bufnr)
---    -- see :help lsp-zero-keybindings
---    -- to learn the available actions
---    lsp_zero.default_keymaps({ buffer = bufnr })
---end)
---
---local lspconfig = require("lspconfig")
---local util = require("lspconfig/util")
---
---require('mason').setup({})
---require('mason-lspconfig').setup({
---    ensure_installed = {
---        'rust_analyzer',
---        'tailwindcss',
---        'gopls',
---        'tsserver',
---        'pyright',
---        'bashls',
---        'html',
---        'lua_ls',
---        'puppet',
---        'yamlls'
---    },
---    handlers = {
---        lsp_zero.default_setup,
---
---        lua_ls = function()
---            local lua_opts = lsp_zero.nvim_lua_ls()
---            lspconfig.lua_ls.setup(lua_opts)
---        end,
---
---        rust_analyzer = function()
---            require("lspconfig").rust_analyzer.setup({
---                filetype = { "rust" },
---                root_dir = util.root_pattern("Cargo.toml"),
---                settings = {
---                    ['rust-analyzer'] = {
---                        cargo = {
---                            allFeatures = true,
---                        },
---                    },
---                },
---            })
---        end
---    },
---})
---
---
---local cmp = require('cmp')
---local cmp_action = lsp_zero.cmp_action()
---
---cmp.setup({
---    formatting = lsp_zero.cmp_format({}),
---    mapping = cmp.mapping.preset.insert({
---        ['<Tab>'] = cmp_action.luasnip_supertab(),
---        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
---        ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
---        ['<CR>'] = cmp.mapping.confirm({ select = true }),
---    }),
---})
