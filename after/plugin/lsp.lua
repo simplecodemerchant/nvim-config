@@ -127,8 +127,7 @@ cmp.setup({
   formatting = cmp_format,
   mapping = cmp.mapping.preset.insert({
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-CR>'] = cmp.mapping.confirm({ select = false }),
-    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<C-y>'] = cmp.mapping.confirm({ select = false }),
   }),
 })

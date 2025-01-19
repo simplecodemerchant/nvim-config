@@ -9,7 +9,6 @@ function ColorMyPencils(color)
 
   hl(0, 'SignColumn', { clear })
   hl(0, 'StatusLine', { clear })
-
 end
 
-ColorMyPencils()
+-- ColorMyPencils()
