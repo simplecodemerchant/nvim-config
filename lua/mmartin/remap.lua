@@ -50,3 +50,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>")
 vim.keymap.set("n", "<leader>s", "*")
 
+vim.keymap.set("n", "<leader>pv", "<cmd>lua MiniFiles.open()<CR>")
+vim.keymap.set("", "<A-,>", "<cmd>bprev<CR>")
+vim.keymap.set("", "<A-.>", "<cmd>bnext<CR>")
+vim.keymap.set("", "<A-c>", "<cmd>bdelete<CR>")
