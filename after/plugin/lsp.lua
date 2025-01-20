@@ -27,11 +27,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
     if client ~= nil then
-      if client.supports_method('textDocument/completion') then
+      if client:supports_method('textDocument/completion') then
         vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
       end
 
-      if client.supports_method('textDocument/formatting') then
+      if client:supports_method('textDocument/formatting') then
         vim.api.nvim_create_autocmd('BufWritePre', {
           buffer = args.buf,
           callback = function()
@@ -40,11 +40,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         })
       end
 
-      if client.supports_method('textDocument/inlayHint') then
+      if client:supports_method('textDocument/inlayHint') then
         vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
       end
 
-      if client.supports_method('textDocument/documentHighlight') then
+      if client:supports_method('textDocument/documentHighlight') then
         local autocmd = vim.api.nvim_create_autocmd
         local augroup = vim.api.nvim_create_augroup('lsp_highlight', { clear = false })
 
@@ -70,40 +70,25 @@ local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {},
+  ensure_installed = {
+    'tailwindcss',
+    'gopls',
+    'ts_ls',
+    'pyright',
+    'bashls',
+    'html',
+    'lua_ls',
+    'puppet',
+    'yamlls',
+    'terraformls',
+    'docker_compose_language_service',
+    'dockerls',
+  },
   handlers = {
     function(server_name)
       require('lspconfig')[server_name].setup({
         capabilities = lsp_capabilities,
       })
-    end,
-  },
-})
-
-local cmp = require('cmp')
-
-cmp.setup({
-  sources = {
-    { name = 'path' },
-    { name = 'nvim_lsp' },
-    { name = 'luasnip', keyword_length = 2 },
-    { name = 'buffer',  keyword_length = 3 },
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    -- Enter key confirms completion item
-    -- ['<CR>'] = cmp.mapping.confirm({ select = false }),
-    --
-    -- -- Ctrl + space triggers completion menu
-    -- ['<C-Space>'] = cmp.mapping.complete(),
-  }),
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
     end,
 
     lua_ls = function()
@@ -126,6 +111,30 @@ cmp.setup({
         }
       })
     end,
+  },
+})
+
+local cmp = require('cmp')
+
+cmp.setup({
+  sources = {
+    { name = 'path' },
+    { name = 'nvim_lsp' },
+    { name = 'luasnip', keyword_length = 2 },
+    { name = 'buffer',  keyword_length = 3 },
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+
   },
 })
 
