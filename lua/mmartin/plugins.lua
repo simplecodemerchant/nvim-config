@@ -18,28 +18,6 @@ require("lazy").setup({
     dependencies = { { 'nvim-lua/plenary.nvim' } }
   },
   { 'echasnovski/mini.nvim',            version = false },
-  --{
-  --  "danielfalk/smart-open.nvim",
-  --  branch = "0.2.x",
-  --  config = function()
-  --    require("telescope").load_extension("smart_open")
-  --  end,
-  --  dependencies = {
-  --    "kkharji/sqlite.lua",
-  --    -- Only required if using match_algorithm fzf
-  --    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  --    -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
-  --    { "nvim-telescope/telescope-fzy-native.nvim" },
-  --  },
-  --},
-
-  --{
-  --  'rose-pine/neovim',
-  --  name = 'rose-pine',
-  --  config = function()
-  --    vim.cmd.colorscheme('rose-pine')
-  --  end
-  --},
 
   {
     'nvim-treesitter/nvim-treesitter',
@@ -55,25 +33,22 @@ require("lazy").setup({
 
   'tpope/vim-fugitive',
 
+  -- { 'VonHeikemen/lsp-zero.nvim',        branch = 'v4.x' },
+  { 'neovim/nvim-lspconfig' },
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
-
-  { 'VonHeikemen/lsp-zero.nvim',        branch = 'v4.x' },
-  { 'neovim/nvim-lspconfig' },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-path' },
+  -- { 'hrsh7th/cmp-buffer' },
+  -- { 'hrsh7th/cmp-path' },
   {
-    'L3MON4D3/LuaSnip',
+    "L3MON4D3/LuaSnip",
     -- follow latest release.
-    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    version = "v2.3.0",
     -- install jsregexp (optional!).
-    build = "make install_jsregexp",
-    dependencies = { "rafamadriz/friendly-snippets" }
+    build = "make install_jsregexp"
   },
   "saadparwaiz1/cmp_luasnip",
-  -- { "nvim-tree/nvim-tree.lua" },
   {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
@@ -85,17 +60,6 @@ require("lazy").setup({
       },
     },
   },
-  -- { "Bilal2453/luvit-meta",      lazy = true }, -- optional `vim.uv` typings
-  --{                                          -- optional completion source for require statements and module annotations
-  --  "hrsh7th/nvim-cmp",
-  --  opts = function(_, opts)
-  --    opts.sources = opts.sources or {}
-  --    table.insert(opts.sources, {
-  --      name = "lazydev",
-  --      group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-  --    })
-  --  end,
-  --},
   {
     "kdheepak/lazygit.nvim",
     -- optional for floating window border decoration
@@ -107,23 +71,6 @@ require("lazy").setup({
       require("telescope").load_extension("lazygit")
     end,
   },
-  --{ 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
-
-  --{
-  --  'romgrk/barbar.nvim',
-  --  dependencies = {
-  --    'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
-  --    'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-  --  },
-  --  init = function() vim.g.barbar_auto_setup = false end,
-  --  opts = {
-  --    -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-  --    -- animation = true,
-  --    -- insert_at_start = true,
-  --    -- …etc.
-  --  },
-  --  version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  --},
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -191,5 +138,56 @@ require("lazy").setup({
   --    },
   --  },
   --  opts_extend = { "sources.default" }
+  --},
+  --{
+  --  "danielfalk/smart-open.nvim",
+  --  branch = "0.2.x",
+  --  config = function()
+  --    require("telescope").load_extension("smart_open")
+  --  end,
+  --  dependencies = {
+  --    "kkharji/sqlite.lua",
+  --    -- Only required if using match_algorithm fzf
+  --    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  --    -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+  --    { "nvim-telescope/telescope-fzy-native.nvim" },
+  --  },
+  --},
+
+  --{
+  --  'rose-pine/neovim',
+  --  name = 'rose-pine',
+  --  config = function()
+  --    vim.cmd.colorscheme('rose-pine')
+  --  end
+  --},
+  -- { "nvim-tree/nvim-tree.lua" },
+  -- { "Bilal2453/luvit-meta",      lazy = true }, -- optional `vim.uv` typings
+  --{                                          -- optional completion source for require statements and module annotations
+  --  "hrsh7th/nvim-cmp",
+  --  opts = function(_, opts)
+  --    opts.sources = opts.sources or {}
+  --    table.insert(opts.sources, {
+  --      name = "lazydev",
+  --      group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+  --    })
+  --  end,
+  --},
+  --{ 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
+
+  --{
+  --  'romgrk/barbar.nvim',
+  --  dependencies = {
+  --    'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+  --    'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+  --  },
+  --  init = function() vim.g.barbar_auto_setup = false end,
+  --  opts = {
+  --    -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+  --    -- animation = true,
+  --    -- insert_at_start = true,
+  --    -- …etc.
+  --  },
+  --  version = '^1.0.0', -- optional: only update when a new 1.x version is released
   --},
 })
