@@ -28,40 +28,40 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if client ~= nil then
       if client:supports_method('textDocument/completion') then
-        vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+        vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false })
       end
-
-      if client:supports_method('textDocument/formatting') then
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          buffer = args.buf,
-          callback = function()
-            vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-          end,
-        })
-      end
-
-      if client:supports_method('textDocument/inlayHint') then
-        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-      end
-
-      if client:supports_method('textDocument/documentHighlight') then
-        local autocmd = vim.api.nvim_create_autocmd
-        local augroup = vim.api.nvim_create_augroup('lsp_highlight', { clear = false })
-
-        vim.api.nvim_clear_autocmds({ buffer = args.buf, group = augroup })
-
-        autocmd({ 'CursorHold' }, {
-          group = augroup,
-          buffer = args.buf,
-          callback = vim.lsp.buf.document_highlight,
-        })
-
-        autocmd({ 'CursorMoved' }, {
-          group = augroup,
-          buffer = args.buf,
-          callback = vim.lsp.buf.clear_references,
-        })
-      end
+    --
+    --   if client:supports_method('textDocument/formatting') then
+    --     vim.api.nvim_create_autocmd('BufWritePre', {
+    --       buffer = args.buf,
+    --       callback = function()
+    --         vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+    --       end,
+    --     })
+    --   end
+    --
+    --   if client:supports_method('textDocument/inlayHint') then
+    --     vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+    --   end
+    --
+    --   if client:supports_method('textDocument/documentHighlight') then
+    --     local autocmd = vim.api.nvim_create_autocmd
+    --     local augroup = vim.api.nvim_create_augroup('lsp_highlight', { clear = false })
+    --
+    --     vim.api.nvim_clear_autocmds({ buffer = args.buf, group = augroup })
+    --
+    --     autocmd({ 'CursorHold' }, {
+    --       group = augroup,
+    --       buffer = args.buf,
+    --       callback = vim.lsp.buf.document_highlight,
+    --     })
+    --
+    --     autocmd({ 'CursorMoved' }, {
+    --       group = augroup,
+    --       buffer = args.buf,
+    --       callback = vim.lsp.buf.clear_references,
+    --     })
+    --   end
     end
   end
 })
@@ -138,6 +138,55 @@ cmp.setup({
   },
 })
 
+local ls = require('luasnip')
+local lstypes = require('luasnip.util.types')
+
+vim.snippet.expand = ls.lsp_expand
+
+---@diagnostic disable-next-line: duplicate-set-field
+vim.snippet.active = function(filter)
+  filter = filter or {}
+  filter.direction = filter.direction or 1
+
+  if filter.direction == 1 then
+    return ls.expand_or_jumpable()
+  else
+    return ls.jumpable(filter.direction)
+  end
+end
+
+---@diagnostic disable-next-line: duplicate-set-field
+vim.snippet.jump = function(direction)
+  if direction == 1 then
+    if ls.expandable() then
+      return ls.expand_or_jump()
+    else
+      return ls.jumpable(1) and ls.jump(1)
+    end
+  else
+    return ls.jumpable(-1) and ls.jump(-1)
+  end
+end
+
+vim.snippet.stop = ls.unlink_current
+
+ls.config.set_config {
+  history = true,
+  update = 'TextChanged,TextChangedI',
+  override_builtin = true,
+}
+
+for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("snippets/*.lua", true)) do
+  loadfile(ft_path)()
+end
+
+vim.keymap.set({ "i", "s" }, "<c-k>", function()
+  return vim.snippet.active { direction = 1 } and vim.snippet.jump(1)
+end, { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<c-j>", function()
+  return vim.snippet.active { direction = -1 } and vim.snippet.jump(-1)
+end, { silent = true })
 
 
 
