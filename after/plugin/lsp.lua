@@ -170,12 +170,8 @@ end
 vim.snippet.stop = ls.unlink_current
 
 
--- for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("snippets/*.lua", true)) do
---   loadfile(ft_path)()
--- end
 
-
--- require("luasnip.loaders.from_lua").load({ path = "~/.config/nvim/snippets" })
+require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
 
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
   return vim.snippet.active { direction = 1 } and vim.snippet.jump(1)
@@ -205,6 +201,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
+ls.setup()
 ls.config.set_config {
   history = true,
   update = 'TextChanged,TextChangedI',
@@ -212,5 +209,5 @@ ls.config.set_config {
 }
 
 ls.add_snippets("all", {
-  s("trig", { "loaded" })
+  s("trig", { t("loaded") })
 })

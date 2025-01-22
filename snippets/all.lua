@@ -1,3 +1,3 @@
 return {
-  s("trig", t("loaded!!"))
+  s("something", t("loaded!!"))
 }
