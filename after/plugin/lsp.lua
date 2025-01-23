@@ -1,8 +1,8 @@
 -- note: diagnostics are not exclusive to lsp serverslsp
 -- so these can be global keybindings
-vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+-- vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+-- vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+-- vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -14,15 +14,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- because they only work if you have an active language server
 
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    -- vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    -- vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    -- vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    -- vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    -- vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    -- vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    -- vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    -- vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    -- vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
@@ -181,25 +181,6 @@ vim.keymap.set({ "i", "s" }, "<c-j>", function()
   return vim.snippet.active { direction = -1 } and vim.snippet.jump(-1)
 end, { silent = true })
 
--- some shorthands...
-local s = ls.snippet
-local sn = ls.snippet_node
-local t = ls.text_node
-local i = ls.insert_node
-local f = ls.function_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local r = ls.restore_node
-local l = require("luasnip.extras").lambda
-local rep = require("luasnip.extras").rep
-local p = require("luasnip.extras").partial
-local m = require("luasnip.extras").match
-local n = require("luasnip.extras").nonempty
-local dl = require("luasnip.extras").dynamic_lambda
-local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
-local types = require("luasnip.util.types")
-local conds = require("luasnip.extras.expand_conditions")
 
 ls.setup()
 ls.config.set_config {
@@ -208,6 +189,85 @@ ls.config.set_config {
   override_builtin = true,
 }
 
-ls.add_snippets("all", {
-  s("trig", { t("loaded") })
-})
+--  LuaSnip Reference
+--  local lazy_snip_env = {
+--
+-- 	s = function()
+-- 		return require("luasnip.nodes.snippet").S
+-- 	end,
+-- 	sn = function()
+-- 		return require("luasnip.nodes.snippet").SN
+-- 	end,
+-- 	isn = function()
+-- 		return require("luasnip.nodes.snippet").ISN
+-- 	end,
+-- 	t = function()
+-- 		return require("luasnip.nodes.textNode").T
+-- 	end,
+-- 	i = function()
+-- 		return require("luasnip.nodes.insertNode").I
+-- 	end,
+-- 	f = function()
+-- 		return require("luasnip.nodes.functionNode").F
+-- 	end,
+-- 	c = function()
+-- 		return require("luasnip.nodes.choiceNode").C
+-- 	end,
+-- 	d = function()
+-- 		return require("luasnip.nodes.dynamicNode").D
+-- 	end,
+-- 	r = function()
+-- 		return require("luasnip.nodes.restoreNode").R
+-- 	end,
+-- 	events = function()
+-- 		return require("luasnip.util.events")
+-- 	end,
+-- 	k = function()
+-- 		return require("luasnip.nodes.key_indexer").new_key
+-- 	end,
+-- 	ai = function()
+-- 		return require("luasnip.nodes.absolute_indexer")
+-- 	end,
+-- 	extras = function()
+-- 		return require("luasnip.extras")
+-- 	end,
+-- 	l = function()
+-- 		return require("luasnip.extras").lambda
+-- 	end,
+-- 	rep = function()
+-- 		return require("luasnip.extras").rep
+-- 	end,
+-- 	p = function()
+-- 		return require("luasnip.extras").partial
+-- 	end,
+-- 	m = function()
+-- 		return require("luasnip.extras").match
+-- 	end,
+-- 	n = function()
+-- 		return require("luasnip.extras").nonempty
+-- 	end,
+-- 	dl = function()
+-- 		return require("luasnip.extras").dynamic_lambda
+-- 	end,
+-- 	fmt = function()
+-- 		return require("luasnip.extras.fmt").fmt
+-- 	end,
+-- 	fmta = function()
+-- 		return require("luasnip.extras.fmt").fmta
+-- 	end,
+-- 	conds = function()
+-- 		return require("luasnip.extras.expand_conditions")
+-- 	end,
+-- 	postfix = function()
+-- 		return require("luasnip.extras.postfix").postfix
+-- 	end,
+-- 	types = function()
+-- 		return require("luasnip.util.types")
+-- 	end,
+-- 	parse = function()
+-- 		return require("luasnip.util.parser").parse_snippet
+-- 	end,
+-- 	ms = function()
+-- 		return require("luasnip.nodes.multiSnippet").new_multisnippet
+-- 	end,
+-- }

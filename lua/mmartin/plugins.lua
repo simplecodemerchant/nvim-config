@@ -67,9 +67,9 @@ require("lazy").setup({
     --   "nvim-telescope/telescope.nvim",
     --   "nvim-lua/plenary.nvim",
     -- },
-  --   config = function()
-  --     require("telescope").load_extension("lazygit")
-  --   end,
+    --   config = function()
+    --     require("telescope").load_extension("lazygit")
+    --   end,
   },
   {
     "folke/trouble.nvim",
@@ -113,101 +113,65 @@ require("lazy").setup({
     ---@type snacks.Config
     opts = {
       input = {},
-      terminal = {},
+      git = {},
+      lazygit = {},
       words = {},
+      picker = {},
+      dim = {},
     },
     keys = {
-      { "<leader>gb", function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
-      { "<leader>gf", function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
-      { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
-      { "<leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log (cwd)" },
-      { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
-      { "<c-/>",      function() Snacks.terminal() end,                desc = "Toggle Terminal" },
-      { "<c-_>",      function() Snacks.terminal() end,                desc = "which_key_ignore" },
-      { "]]",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
-      { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+      { "<leader>gb",      function() Snacks.git.blame_line() end,              desc = "Git Blame Line" },
+
+      { "<leader>gf",      function() Snacks.lazygit.log_file() end,            desc = "Lazygit Current File History" },
+      { "<leader>gg",      function() Snacks.lazygit() end,                     desc = "Lazygit" },
+      { "<leader>gl",      function() Snacks.lazygit.log() end,                 desc = "Lazygit Log (cwd)" },
+
+      { "<leader>un",      function() Snacks.notifier.hide() end,               desc = "Dismiss All Notifications" },
+
+      { "]]",              function() Snacks.words.jump(vim.v.count1) end,      desc = "Next Reference",              mode = { "n", "t" } },
+      { "[[",              function() Snacks.words.jump(-vim.v.count1) end,     desc = "Prev Reference",              mode = { "n", "t" } },
+
+      { "<leader>,",       function() Snacks.picker.buffers() end,              desc = "Buffers" },
+      { "<leader>/",       function() Snacks.picker.grep() end,                 desc = "Grep" },
+      { "<leader>:",       function() Snacks.picker.command_history() end,      desc = "Command History" },
+      { "<leader><space>", function() Snacks.picker.files() end,                desc = "Find Files" },
+      -- find
+      -- { "<leader>fb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
+      -- { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+      { "<leader>ff",      function() Snacks.picker.files() end,                desc = "Find Files" },
+      { "<leader>fg",      function() Snacks.picker.git_files() end,            desc = "Find Git Files" },
+      { "<leader>fr",      function() Snacks.picker.recent() end,               desc = "Recent" },
+      -- git
+      { "<leader>gc",      function() Snacks.picker.git_log() end,              desc = "Git Log" },
+      { "<leader>gs",      function() Snacks.picker.git_status() end,           desc = "Git Status" },
+      -- Grep
+      { "<leader>sb",      function() Snacks.picker.lines() end,                desc = "Buffer Lines" },
+      { "<leader>sB",      function() Snacks.picker.grep_buffers() end,         desc = "Grep Open Buffers" },
+      { "<leader>sg",      function() Snacks.picker.grep() end,                 desc = "Grep" },
+      { "<leader>sw",      function() Snacks.picker.grep_word() end,            desc = "Visual selection or word",    mode = { "n", "x" } },
+      -- search
+      { '<leader>s"',      function() Snacks.picker.registers() end,            desc = "Registers" },
+      { "<leader>sa",      function() Snacks.picker.autocmds() end,             desc = "Autocmds" },
+      { "<leader>sc",      function() Snacks.picker.command_history() end,      desc = "Command History" },
+      { "<leader>sC",      function() Snacks.picker.commands() end,             desc = "Commands" },
+      { "<leader>sd",      function() Snacks.picker.diagnostics() end,          desc = "Diagnostics" },
+      { "<leader>sh",      function() Snacks.picker.help() end,                 desc = "Help Pages" },
+      { "<leader>sH",      function() Snacks.picker.highlights() end,           desc = "Highlights" },
+      { "<leader>sj",      function() Snacks.picker.jumps() end,                desc = "Jumps" },
+      { "<leader>sk",      function() Snacks.picker.keymaps() end,              desc = "Keymaps" },
+      { "<leader>sl",      function() Snacks.picker.loclist() end,              desc = "Location List" },
+      { "<leader>sM",      function() Snacks.picker.man() end,                  desc = "Man Pages" },
+      { "<leader>sm",      function() Snacks.picker.marks() end,                desc = "Marks" },
+      { "<leader>sR",      function() Snacks.picker.resume() end,               desc = "Resume" },
+      { "<leader>sq",      function() Snacks.picker.qflist() end,               desc = "Quickfix List" },
+      { "<leader>uC",      function() Snacks.picker.colorschemes() end,         desc = "Colorschemes" },
+      { "<leader>qp",      function() Snacks.picker.projects() end,             desc = "Projects" },
+      -- LSP
+      { "gd",              function() Snacks.picker.lsp_definitions() end,      desc = "Goto Definition" },
+      { "gr",              function() Snacks.picker.lsp_references() end,       nowait = true,                        desc = "References" },
+      { "gI",              function() Snacks.picker.lsp_implementations() end,  desc = "Goto Implementation" },
+      { "gy",              function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+      { "<leader>ss",      function() Snacks.picker.lsp_symbols() end,          desc = "LSP Symbols" },
     },
   }
-  --{
-  --  'saecki/crates.nvim',
-  --  tag = 'stable',
-  --  config = function()
-  --    require('crates').setup {
-  --      completion = {
-  --        cmp = {
-  --          enabled = true,
-  --        },
-  --      },
-  --    }
-  --  end,
-  --},
-  --{
-  --  'saghen/blink.cmp',
-  --  dependencies = 'rafamadriz/friendly-snippets',
-
-  --  version = '*',
-  --  opts = {
-  --    keymap = { preset = 'default' },
-
-  --    appearance = {
-  --      use_nvim_cmp_as_default = true,
-  --      nerd_font_variant = 'mono'
-  --    },
-  --    sources = {
-  --      default = { 'lsp', 'path', 'snippets', 'buffer' },
-  --    },
-  --  },
-  --  opts_extend = { "sources.default" }
-  --},
-  --{
-  --  "danielfalk/smart-open.nvim",
-  --  branch = "0.2.x",
-  --  config = function()
-  --    require("telescope").load_extension("smart_open")
-  --  end,
-  --  dependencies = {
-  --    "kkharji/sqlite.lua",
-  --    -- Only required if using match_algorithm fzf
-  --    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  --    -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
-  --    { "nvim-telescope/telescope-fzy-native.nvim" },
-  --  },
-  --},
-
-  --{
-  --  'rose-pine/neovim',
-  --  name = 'rose-pine',
-  --  config = function()
-  --    vim.cmd.colorscheme('rose-pine')
-  --  end
-  --},
-  -- { "nvim-tree/nvim-tree.lua" },
-  -- { "Bilal2453/luvit-meta",      lazy = true }, -- optional `vim.uv` typings
-  --{                                          -- optional completion source for require statements and module annotations
-  --  "hrsh7th/nvim-cmp",
-  --  opts = function(_, opts)
-  --    opts.sources = opts.sources or {}
-  --    table.insert(opts.sources, {
-  --      name = "lazydev",
-  --      group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-  --    })
-  --  end,
-  --},
-  --{ 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
-
-  --{
-  --  'romgrk/barbar.nvim',
-  --  dependencies = {
-  --    'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
-  --    'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-  --  },
-  --  init = function() vim.g.barbar_auto_setup = false end,
-  --  opts = {
-  --    -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-  --    -- animation = true,
-  --    -- insert_at_start = true,
-  --    -- …etc.
-  --  },
-  --  version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  --},
 })
