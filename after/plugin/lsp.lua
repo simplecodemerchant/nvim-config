@@ -169,8 +169,6 @@ end
 
 vim.snippet.stop = ls.unlink_current
 
-
-
 require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets" })
 
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
@@ -188,6 +186,8 @@ ls.config.set_config {
   update = 'TextChanged,TextChangedI',
   override_builtin = true,
 }
+
+ls.filetype_extend('js', { 'ts', 'tsx', 'jsx', 'mjs', 'cjs' })
 
 --  LuaSnip Reference
 --  local lazy_snip_env = {
