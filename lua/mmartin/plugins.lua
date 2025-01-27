@@ -12,12 +12,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  { 'rebelot/kanagawa.nvim' },
   {
     'nvim-telescope/telescope.nvim',
     version = '0.1.5',
     dependencies = { { 'nvim-lua/plenary.nvim' } }
   },
-  { 'echasnovski/mini.nvim',            version = false },
+  { 'echasnovski/mini.nvim', version = false },
 
   {
     'nvim-treesitter/nvim-treesitter',
@@ -164,7 +165,7 @@ require("lazy").setup({
       { "<leader>sm",      function() Snacks.picker.marks() end,                desc = "Marks" },
       { "<leader>sR",      function() Snacks.picker.resume() end,               desc = "Resume" },
       { "<leader>sq",      function() Snacks.picker.qflist() end,               desc = "Quickfix List" },
-      { "<leader>uC",      function() Snacks.picker.colorschemes() end,         desc = "Colorschemes" },
+      -- { "<leader>uC",      function() Snacks.picker.colorschemes() end,         desc = "Colorschemes" },
       { "<leader>qp",      function() Snacks.picker.projects() end,             desc = "Projects" },
       -- LSP
       { "gd",              function() Snacks.picker.lsp_definitions() end,      desc = "Goto Definition" },
