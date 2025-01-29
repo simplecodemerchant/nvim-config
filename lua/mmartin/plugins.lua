@@ -25,9 +25,11 @@ require("lazy").setup({
     build = ':TSUpdate',
     branch = "master",
   },
-
+  { 'akinsho/bufferline.nvim',          version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
   'nvim-treesitter/playground',
   'nvim-tree/nvim-tree.lua',
+  -- bufdelete is basically required if using nvim-tree
+  'famiu/bufdelete.nvim',
   'theprimeagen/harpoon',
 
   'mbbill/undotree',
