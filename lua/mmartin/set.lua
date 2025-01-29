@@ -41,5 +41,5 @@ vim.opt.ignorecase = true
 vim.opt.title = true
 vim.opt.titlelen = 0 -- do not shorten title
 vim.opt.titlestring = '%{expand("%:.")}'
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.guicursor = 'a:blinkon100'

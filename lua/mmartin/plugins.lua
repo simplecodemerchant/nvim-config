@@ -27,7 +27,7 @@ require("lazy").setup({
   },
 
   'nvim-treesitter/playground',
-
+  'nvim-tree/nvim-tree.lua',
   'theprimeagen/harpoon',
 
   'mbbill/undotree',
