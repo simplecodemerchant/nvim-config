@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+-- Prefer nvim-tree to this style of explorer
 --vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 --vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 --vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
@@ -32,7 +33,6 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
--- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 -- idk
@@ -47,7 +47,6 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- eh
 -- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- vim.keymap.set("n", "<leader>pv", "<cmd>lua MiniFiles.open()<CR>")
 vim.keymap.set("", "<A-,>", "<cmd>bprev<CR>")
 vim.keymap.set("", "<A-.>", "<cmd>bnext<CR>")
 vim.keymap.set("", "<A-c>", "<cmd>Bdelete<CR>")

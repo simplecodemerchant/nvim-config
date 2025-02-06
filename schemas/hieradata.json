@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "profile::de::web::beacon::config::v2_base_url": {
+      "type": "string",
+      "description": "The base URL for the v2 beacon configuration."
+    }
+  }
+}

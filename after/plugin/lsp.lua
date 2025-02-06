@@ -72,6 +72,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile' }, {
 })
 
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local schema_path = vim.fn.stdpath("config") .. "/schemas/hieradata.json"
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
@@ -116,7 +117,17 @@ require('mason-lspconfig').setup({
         }
       })
     end,
-    function()
+    yamlls = function()
+      require('lspconfig').yamlls.setup({
+        settings = {
+          yaml = {
+            schemas = {
+              [schema_path] = "/hieradata/**/*.yaml"
+            }
+          }
+        }
+      })
+    end
   },
 })
 
