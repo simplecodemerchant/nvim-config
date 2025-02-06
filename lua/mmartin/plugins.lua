@@ -12,20 +12,25 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { 'rebelot/kanagawa.nvim' },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
   {
     'nvim-telescope/telescope.nvim',
     version = '0.1.5',
     dependencies = { { 'nvim-lua/plenary.nvim' } }
   },
-  { 'echasnovski/mini.nvim', version = false },
+  { 'echasnovski/mini.nvim',   version = false },
 
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     branch = "master",
   },
-  { 'akinsho/bufferline.nvim',          version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+  { 'akinsho/bufferline.nvim', version = "*",  dependencies = 'nvim-tree/nvim-web-devicons' },
   'nvim-treesitter/playground',
   'nvim-tree/nvim-tree.lua',
   -- bufdelete is basically required if using nvim-tree

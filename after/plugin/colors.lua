@@ -1,4 +1,12 @@
-require("kanagawa").load("wave")
+vim.cmd [[colorscheme tokyonight-storm]]
+-- vim.cmd("colorscheme cyberdream")
+-- require("cyberdream").setup({
+--   transparent = true,
+--   extensions = {
+--     mini = true
+--   }
+-- })
+-- require("kanagawa").load("wave")
 --function ColorMyPencils(color)
 --  color = color or "rose-pine"
 --  vim.cmd.colorscheme(color)
