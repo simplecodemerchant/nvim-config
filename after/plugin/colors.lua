@@ -1,4 +1,6 @@
-vim.cmd [[colorscheme tokyonight-storm]]
+vim.cmd [[
+  colorscheme tokyonight-storm
+]]
 -- vim.cmd("colorscheme cyberdream")
 -- require("cyberdream").setup({
 --   transparent = true,

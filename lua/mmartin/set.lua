@@ -16,10 +16,11 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
+vim.opt.cursorline = false
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
-vim.opt.termguicolors = true
+-- vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
@@ -42,4 +43,4 @@ vim.opt.title = true
 vim.opt.titlelen = 0 -- do not shorten title
 vim.opt.titlestring = '%{expand("%:.")}'
 vim.opt.wrap = true
-vim.opt.guicursor = 'a:blinkon100'
+vim.opt.guicursor = 'n-v-c:block,i:ver25,r:ver25'
