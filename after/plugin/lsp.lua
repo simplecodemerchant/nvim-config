@@ -116,6 +116,7 @@ require('mason-lspconfig').setup({
         }
       })
     end,
+    function()
   },
 })
 
