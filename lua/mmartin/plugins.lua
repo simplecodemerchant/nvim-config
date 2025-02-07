@@ -30,6 +30,10 @@ require("lazy").setup({
     dependencies = { { 'nvim-lua/plenary.nvim' } }
   },
   { 'echasnovski/mini.nvim',   version = false },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
 
   {
     'nvim-treesitter/nvim-treesitter',
