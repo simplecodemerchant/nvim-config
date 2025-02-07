@@ -1,9 +1,10 @@
--- local theme = require('lualine.themes.iceberg_dark')
+local theme = require('lualine.themes.auto')
 
 require('lualine').setup({
-  options = { theme = 'auto' },
+  options = { theme = theme },
   extensions = {
-    'trouble'
+    'trouble',
+    'nvim-tree'
   },
   sections = {
     lualine_c = {
