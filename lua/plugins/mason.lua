@@ -1,16 +1,12 @@
 return {
+  { "mason-org/mason.nvim", version = "^1.0.0" },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    version = "^1.0.0",
     opts = {
       ensure_installed = {
-        "tailwindcss",
-        "gopls",
-        "rust_analyzer",
-        "pyright",
         "bashls",
-        "html",
         "lua_ls",
-        "ts_ls",
         "puppet",
         "yamlls",
         "terraformls",
