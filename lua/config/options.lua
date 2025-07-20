@@ -5,3 +5,4 @@ local opt = vim.opt
 
 -- opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 opt.clipboard = ""
+opt.wrap = true
