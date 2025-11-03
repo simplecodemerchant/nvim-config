@@ -1,10 +1,13 @@
 return {
   {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    opts = { style = "moon" },
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = function()
-        require("catppuccin").load("macchiato")
-      end,
+      colorscheme = "tokyonight-moon",
     },
   },
 }
