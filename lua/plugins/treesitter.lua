@@ -4,6 +4,8 @@ return {
     opts = {
       ensure_installed = {
         "puppet",
+        "terraform",
+        "hcl",
       },
     },
   },
